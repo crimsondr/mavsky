@@ -151,6 +151,9 @@ uint16_t telem_data_get_value(uint16_t telemetry_data_value_id) {
           }
           return hdop_val;
           break;
+        case EEPROM_VALUE_MAP_DATA_T2_ARMED:
+          return ((mav.base_mode & 0x80) > 7)&0x01;
+          break;
       }
       break;
       

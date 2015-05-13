@@ -21,7 +21,7 @@ void do_help() {
   console_print("map accy     [direct|average10|average50|peak10|peak50]\r\n");
   console_print("map accz     [direct|average10|average50|peak10|peak50]\r\n");
   console_print("map gpsspeed [kph|mps]\r\n");
-  console_print("map t2       [batt_remain|mission_seq|temp|wp_dist|hdop]\r\n");
+  console_print("map t2       [batt_remain|mission_seq|temp|wp_dist|hdop|armed]\r\n");
   console_print("set hdop     [1-10]\r\n");
   console_print("frsky vfas   [enable|disable]\r\n");
   console_print("factory\r\n");
@@ -334,6 +334,9 @@ void do_map(char* p) {
       } else if(strcmp(p, "hdop") == 0) {
         EEPROM.write(EEPROM_ADDR_MAP_TELEM_DATA_T2, EEPROM_VALUE_MAP_DATA_T2_HDOP);
         console_print("hdop routed to t2\r\n");
+      } else if(strcmp(p, "armed") == 0) {
+        EEPROM.write(EEPROM_ADDR_MAP_TELEM_DATA_T2, EEPROM_VALUE_MAP_DATA_T2_ARMED);
+        console_print("armed routed to t2\r\n");
       }
     }
   }
