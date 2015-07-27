@@ -23,6 +23,7 @@
 #define EEPROM_ADDR_MAP_TELEM_DATA_T2                7
 #define EEPROM_ADDR_HDOP_THRESHOLD                   8
 #define EEPROM_ADDR_FRSKY_VFAS_ENABLE                9
+#define EEPROM_ADDR_FRSKY_CURRENT_ENABLE            10
 
 
 

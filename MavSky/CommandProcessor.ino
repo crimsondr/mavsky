@@ -15,15 +15,16 @@ void do_help() {
   console_print("timing\r\n");
   console_print("msg [MESSAGE TEXT]\r\n");
   console_print("map\r\n");
-  console_print("map vfas     [direct|average10|average50]\r\n");
-  console_print("map current  [direct|average10|average50]\r\n");
-  console_print("map accx     [direct|average10|average50|peak10|peak50]\r\n");
-  console_print("map accy     [direct|average10|average50|peak10|peak50]\r\n");
-  console_print("map accz     [direct|average10|average50|peak10|peak50]\r\n");
-  console_print("map gpsspeed [kph|mps]\r\n");
-  console_print("map t2       [batt_remain|mission_seq|temp|wp_dist|hdop|armed]\r\n");
-  console_print("set hdop     [1-10]\r\n");
-  console_print("frsky vfas   [enable|disable]\r\n");
+  console_print("map vfas        [direct|average10|average50]\r\n");
+  console_print("map current     [direct|average10|average50]\r\n");
+  console_print("map accx        [direct|average10|average50|peak10|peak50]\r\n");
+  console_print("map accy        [direct|average10|average50|peak10|peak50]\r\n");
+  console_print("map accz        [direct|average10|average50|peak10|peak50]\r\n");
+  console_print("map gpsspeed    [kph|mps]\r\n");
+  console_print("map t2          [batt_remain|mission_seq|temp|wp_dist|hdop|armed]\r\n");
+  console_print("set hdop        [1-10]\r\n");
+  console_print("frsky vfas      [enable|disable]\r\n");
+  console_print("frsky current   [enable|disable]\r\n");
   console_print("factory\r\n");
 }
 
@@ -377,6 +378,21 @@ void do_frsky() {
       console_print("frsky vfas enabled\r\n");
     } else {
       console_print("frsky vfas disabled\r\n");
+    }
+  } else if(strcmp(p, "current") == 0) {
+    p = strtok(NULL, " ");
+    if(p != NULL) {
+      if(strcmp(p, "enable") == 0) {
+        EEPROM.write(EEPROM_ADDR_FRSKY_CURRENT_ENABLE, 1);
+      } else if(strcmp(p, "disable") == 0) {
+        EEPROM.write(EEPROM_ADDR_FRSKY_CURRENT_ENABLE, 0);
+      }
+
+    }
+    if(EEPROM.read(EEPROM_ADDR_FRSKY_CURRENT_ENABLE)) {
+      console_print("frsky current enabled\r\n");
+    } else {
+      console_print("frsky current disabled\r\n");
     }
   }
 }

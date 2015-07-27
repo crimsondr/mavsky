@@ -114,15 +114,19 @@ void frsky_process_sensor_request(uint8_t sensorId) {
       
     case SENSOR_ID_FAS:
       add_timestamp(TIMESTAMP_FRSKY_FAS);
-      if(!mavlink_sys_status_data_valid() || !EEPROM.read(EEPROM_ADDR_FRSKY_VFAS_ENABLE)) {
+      if(!mavlink_sys_status_data_valid() || (!EEPROM.read(EEPROM_ADDR_FRSKY_VFAS_ENABLE) && !EEPROM.read(EEPROM_ADDR_FRSKY_CURRENT_ENABLE))) {
         break;
       }
       switch(next_fas) {
         case 0:
-          frsky_send_package(FR_ID_VFAS, telem_data_get_value(TELEM_DATA_VFAS) / 10);       // Sends voltage as a VFAS value
+          if (EEPROM.read(EEPROM_ADDR_FRSKY_VFAS_ENABLE)) {
+            frsky_send_package(FR_ID_VFAS, telem_data_get_value(TELEM_DATA_VFAS) / 10);       // Sends voltage as a VFAS value
+          }
           break;
         case 1:
-          frsky_send_package(FR_ID_CURRENT, telem_data_get_value(TELEM_DATA_CURRENT) / 10);
+          if (EEPROM.read(EEPROM_ADDR_FRSKY_CURRENT_ENABLE)) {
+            frsky_send_package(FR_ID_CURRENT, telem_data_get_value(TELEM_DATA_CURRENT) / 10);
+          }
           break;
       }
       if(++next_fas > 1)
