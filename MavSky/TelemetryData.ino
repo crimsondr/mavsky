@@ -27,7 +27,7 @@ void telem_data_init() {
   }
 }
 
-uint16_t telem_data_get_value(uint16_t telemetry_data_value_id) {
+uint32_t telem_data_get_value(uint16_t telemetry_data_value_id) {
   switch(telemetry_data_value_id) {
     case TELEM_DATA_VFAS:
       switch(EEPROM.read(EEPROM_ADDR_MAP_TELEM_DATA_VFAS)) {
